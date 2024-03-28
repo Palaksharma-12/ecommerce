@@ -17,12 +17,15 @@ return new class extends Migration
             $table->id();
            
                // Define foreign key for productId
-        $table->unsignedBigInteger('product_id')->nullable();
-        $table->foreign('product_id')->references('id')->on('products')->onDelete('set null');
-        
-        // Define foreign key for customerId
-        $table->unsignedBigInteger('customer_id')->nullable();
-        $table->foreign('customer_id')->references('id')->on('users')->onDelete('set null');
+            $table->unsignedBigInteger('productId')->nullable();
+            $table->foreign('productId')->references('id')->on('products')->onDelete('set null');
+            
+            // Define foreign key for customerId
+            // $table->unsignedBigInteger('customer_id')->nullable();
+            // $table->foreign('customer_id')->references('id')->on('users')->onDelete('set null');
+
+            $table->unsignedBigInteger('customerId')->nullable();
+            $table->foreign('customerId')->references('id')->on('users')->onDelete('set null');
 
             $table->integer('quantity')->default(0);
            

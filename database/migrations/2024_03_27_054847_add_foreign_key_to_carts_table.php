@@ -13,11 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('carts', function (Blueprint $table) {
-            //
-            $table->unsignedBigInteger('customerId')->change();
-            $table->foreign('customerId')->references('id')->on('users');
-        });
+        // Schema::table('carts', function (Blueprint $table) {
+        //     //
+        //     // $table->unsignedBigInteger('customerId')->change();
+        //     // $table->foreign('customerId')->references('id')->on('users');
+        // });
     
     }
 
@@ -28,12 +28,12 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('carts', function (Blueprint $table) {
-            $table->dropForeign(['CustomerId']);
-            $table->integer('customerId')->change();
+        // Schema::table('carts', function (Blueprint $table) {
+        //     // $table->dropForeign(['CustomerId']);
+        //     // $table->integer('customerId')->change();
             
             
             
-        });
+        // });
     }
 };
