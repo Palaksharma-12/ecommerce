@@ -21,7 +21,7 @@ use App\Http\Controllers\LanguageController;
 //Admin Routes
 // Route::get('/admin',[AdminController::class,'index']);
 
- Route::middleware('')->group(function(){
+ Route::middleware('languageinsert')->group(function(){
 Route::post('lang',[LanguageController::class, 'setLanguage']);
 
 Route::get('/adminProducts',[AdminController::class,'products']);

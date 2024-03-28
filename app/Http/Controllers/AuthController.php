@@ -18,6 +18,8 @@ use App\Mail\ResetPasswordEmail;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Str;
 use App\jobs\MyJob;
+use App\Http\Requests\RegistrationRequest;
+use App\Http\Requests\LoginRequest;
 
 class AuthController extends Controller
 {
@@ -37,12 +39,12 @@ class AuthController extends Controller
         return redirect('/login');
     }
 
-    public function auth_login(Request $request)
+    public function auth_login(LoginRequest $request)
     {
-        $request->validate([
-            'email' => 'required|email',
-            'password' => 'required',
-        ]);
+        // $request->validate([
+        //     'email' => 'required|email',
+        //     'password' => 'required',
+        // ]);
 
         $credentials = $request->only('email', 'password');
 
@@ -77,14 +79,14 @@ class AuthController extends Controller
         }
     }
 
-    public function create_user(Request $request)
+    public function create_user(RegistrationRequest $request)
     {
-        dd($request->all());
-        $request->validate([
-            'fullname' => 'required',
-            'email' => 'required|email|unique:users',
-            'password' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
-        ]);
+        // dd($request->all());
+        // $request->validate([
+        //     'fullname' => 'required',
+        //     'email' => 'required|email|unique:users',
+        //     'password' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
+        // ]);
 
         // dump($request->password);
         $user = new User();
