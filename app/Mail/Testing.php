@@ -20,10 +20,13 @@ class Testing extends Mailable
      */
 
     public $details;
+    public $password;
 
-    public function __construct($details2)
+    public function __construct($details2, $password)
     {
+        // dd($details2);
         $this->details = $details2;
+        $this->password = $password;
     }
 
     /**
@@ -34,7 +37,7 @@ class Testing extends Mailable
     public function envelope()
     {
         return new Envelope(
-            subject: 'Testing Mail',
+            subject: 'User Registration',
         );
     }
 

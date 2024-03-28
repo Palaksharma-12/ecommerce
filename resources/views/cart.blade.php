@@ -8,8 +8,8 @@
                     <div class="breadcrumb__text">
                         <h4>Shopping Cart</h4>
                         <div class="breadcrumb__links">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
+                            <!-- <a href="./index.html">Home</a>
+                            <a href="./shop.html">Shop</a> -->
                             <span>Shopping Cart</span>
                         </div>
                     </div>
@@ -61,7 +61,7 @@
                                        <form action="{{URL::to('updateCart')}}" method="POST">
                                        @csrf
                                         <div class="quantity">
-                                        <input type="number" class="form-control" min="1" max="{{$item->pQuantity}}"  name="quantity" value="{{$item->quantity}}">
+                                        <input type="number" class="form-control" min="1" max="{{$item->quantity}}"  name="quantity" value="{{$item->cart->quantity}}">
                                         </div>
                                           <input type="hidden" name="id" value="{{$item->id}}" />
                                           <input type="submit" name="update" class="btn btn-success btn-block" value="Update" />

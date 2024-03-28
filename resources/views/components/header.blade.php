@@ -7,6 +7,7 @@
     <meta name="keywords" content="Male_Fashion, unica, creative, html">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta name="csrf-token" content="{{ csrf_token()}}">
     <title>{{$title}}</title>
 
     <!-- Google Font -->
@@ -24,7 +25,8 @@
     <link rel="stylesheet" href="{{URL::asset('css/slicknav.min.css')}}" type="text/css">
     <link rel="stylesheet" href="{{URL::asset('css/style.css')}}" type="text/css">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-</head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    </head>
 
 <body>
     <!-- Offcanvas Menu Begin -->
@@ -95,6 +97,7 @@
                                <li><a href="{{ url('/logout') }}">Logout</a></li>
                                 <li><a href="#">Account&List</a>
                               <ul class="dropdown">
+                                <li><a href="{{ URL::to('/home')}}">Home</a></li>
                                 <li><a href="{{ URL::to('/cart')}}">Shopping Cart</a></li>
                                 <li><a href="{{ URL::to('/cart')}}">Check Out</a></li>
                                 <li><a href="{{ URL::to('/profile')}}">My Account</a></li>
@@ -107,8 +110,8 @@
                         </ul>
                     </nav>
                 </div>
-                
-            </div>
+            
+             </div>
             <div class="canvas__open"><i class="fa fa-bars"></i></div>
         </div>
     </header>

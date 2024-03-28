@@ -49,14 +49,19 @@ class AuthController extends Controller
         if (Auth::attempt($credentials)) {
             if (Auth::user()->status == "Blocked") {
                 Auth::logout();
-                return redirect('login')->with('error', 'Your account is blocked.');
+                // return redirect('login')->with('error', 'Your account is blocked.');
+                return response()->json(['error' => 'Your account is blocked.'], 400);
             }
             if (Auth::check()) {
                 // If the user is authenticated
                 if (Auth::user()->type == 'customer') {
-                    return redirect('home');
+                    return response()->json(['redirect' => 'home'], 200);
+                    
+                    // return redirect('home');
                 } elseif (Auth::user()->type == 'admin') {
-                    return redirect('admin');
+                    return response()->json(['redirect' => 'admin'], 200);
+
+                    // return redirect('admin');
                 }
             } else {
                 // If the user is not authenticated
@@ -64,19 +69,24 @@ class AuthController extends Controller
             }
 
             return redirect()->intended('home'); // Redirect to the intended page after successful login
-        } else {
-            return redirect('login')->with('error', 'Email or password is incorrect.');
+        } 
+        else {
+            return response()->json(['error' => 'Email or password is incorrect.'], 400);
+
+            // return redirect('login')->with('error', 'Email or password is incorrect.');
         }
     }
 
     public function create_user(Request $request)
     {
+        dd($request->all());
         $request->validate([
             'fullname' => 'required',
             'email' => 'required|email|unique:users',
             'password' => ['required', 'string', Password::min(8)->mixedCase()->numbers()->symbols()],
         ]);
 
+        // dump($request->password);
         $user = new User();
         $user->fullname = $request->fullname;
         $user->email = $request->email;
@@ -86,19 +96,20 @@ class AuthController extends Controller
         // User::updateOrCreate(['id' => $request->id],[
         //     'fullname' => $request->fullname,
         // ]);
-
+// dd($request->password);
 
         $details=[
             'title' =>"You have been successfully logged in",
             "message" =>"Hello this a message",
         ];
-        Myjob::dispatch($user)->onConnection('database');
-        // Mail::to($request->email)->send(new Testing($details));
+        Myjob::dispatch($user,$request->password)->onConnection('database');
+
+        // Mail::to($request->email)>send(new Testing($details));
 
 
 
-
-        return redirect('login')->with('success', 'Congratulations! Your account has been created.');
+        return response()->json(['redirect' => 'login'], 200);
+        // return redirect('login')->with('success', 'Congratulations! Your account has been created.');
     }
 
    
@@ -136,17 +147,18 @@ class AuthController extends Controller
     }
   
    public function resetPassword($token)
-   {
-    $tokenObj = \DB::table('password_reset_tokens')->where('token',$token)->first();
+    {
+      $tokenObj = \DB::table('password_reset_tokens')->where('token',$token)->first();
 
-    if ($tokenObj == null){
-        return redirect()->route('Mails.forgotPassword')->with('error','Invalid request');
+         if ($tokenObj == null){
+         return redirect()->route('Mails.forgotPassword')->with('error','Invalid request');
     }
-    return view('reset-password',[
+         return view('reset-password',[
         'token'=> $token
     ]);
 
    }
+
    public function processResetPassword(Request $request)
    {
     
@@ -181,6 +193,7 @@ class AuthController extends Controller
 
 //        return redirect('/login')->with('success', 'Your password has been reset successfully. You can now login with your new password.');
    }
+
    public function index()
    {
        $allProducts=Product::all();
@@ -188,6 +201,7 @@ class AuthController extends Controller
        $hotSale=Product::where('type','sale')->get();
        return view('index',compact('allProducts','hotSale','newArrival',));
    }
+
    public function profile()
    {
     if (Auth::check()) {
@@ -199,6 +213,7 @@ class AuthController extends Controller
     }
   
 }
+
 public function updateUser(Request $data)
 {
     $user = auth()->user();
@@ -210,6 +225,7 @@ public function updateUser(Request $data)
         return redirect()->back()->with('error', 'Failed to update account. Please try again.');
     }
 }
+
 
 
 

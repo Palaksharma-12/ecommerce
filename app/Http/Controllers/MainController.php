@@ -40,12 +40,11 @@ class MainController extends Controller
         
         if(auth()->check())
         {
-
-            
-            // dd($data->all());
+            //   dd($data->all());
             $item = new Cart();
             $item->quantity = $data->input('quantity');
             $item->productId = $data->input('id');
+            // dd($item);
             $item->customerId = auth()->id(); // Using auth()->id() to get the authenticated user's ID
             $item->save();
             return redirect()->back()->with('success', 'Congratulations! Item added into cart');
@@ -66,28 +65,36 @@ class MainController extends Controller
     
     //     return view('cart', compact('cartItems'));
     // }
-    public function cart()
-{
-    $cartItems = Product::whereHas('cart', function ($query) {
-            $query->where('customerId', auth()->id());
-        })->get();
+           public function cart()
+        {
+            $cartItems = Product::withWhereHas('cart', function($q) {
+               $q->where('customerId', auth()->id());
+            })->get();
+            return view('cart', compact('cartItems'));
+        }
 
-    return view('cart', compact('cartItems'));
-}
+  
+
     public function deleteCartItem($id)
     {
-        $item=Cart::find($id);
-        $item->delete();
-        return redirect()->back()->with('success', 'One item has been deleted from cart');
-    }
+        $product = Product::find($id);
+        if($product){
+            $product->cart()->delete();
+            return redirect()->back()->with('success', 'One item has been deleted from cart');
+        }else{
+            return redirect()->back()->with('error');
+        }
+   }
+
+
+
     public function updateCart(Request $data)
     {
         if(auth()->check())
         {
-            $item =Cart::find($data->input('id'));
-            $item->quantity = $data->input('quantity');
-            $item->save();
-            return redirect()->back()->with('success', 'Congratulations! Item  quantity updated ');
+             $product = Product::whereId($data->input('id'))->first();
+             $product->cart()->update(['quantity' => $data->input('quantity')]);
+             return redirect()->back()->with('success', 'Congratulations! Item  quantity updated ');
         } 
         else {
             return redirect('login')->with('error', 'Info! Please login to the system');

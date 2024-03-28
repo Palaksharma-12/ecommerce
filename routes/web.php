@@ -1,9 +1,10 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
+// use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MainController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\LanguageController;
 
 
 
@@ -19,6 +20,10 @@ use App\Http\Controllers\AdminController;
 */
 //Admin Routes
 // Route::get('/admin',[AdminController::class,'index']);
+
+ Route::middleware('')->group(function(){
+Route::post('lang',[LanguageController::class, 'setLanguage']);
+
 Route::get('/adminProducts',[AdminController::class,'products']);
 Route::post('/AddNewPRODUCT',[AdminController::class,'AddNewPRODUCT']);
 Route::post('/AddNewCustomer',[AdminController::class,'AddNewCustomer']);
@@ -79,7 +84,8 @@ Route::get('/checkout',[MainController::class,'checkout']);
     Route::get('/ourCustomers',[AdminController::class,'ourCustomers']);
     Route::get('/adminProducts',[AdminController::class,'products']);
    });
-
+   
+   });
 
 
 

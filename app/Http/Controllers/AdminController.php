@@ -77,10 +77,7 @@ class AdminController extends Controller
         $data->file('file')->move('Source/products/',$product->picture); 
         }
          
-        
-        
-        
-        $product->save();
+         $product->save();
         return redirect()->back()->with('success','Congratulation!  Product Listing Updated Successfully');
     }
     

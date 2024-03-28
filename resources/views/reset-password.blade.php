@@ -2,10 +2,12 @@
 <div class="container">
         <div class="row justify-content-center">
           <div class="col-sm-6 pt-4">
+            
+                 
                        <div class="text-center">
-                         <h2> Reset Password </h2>
+                         <h2> {{ __('lang.reset_password')}} </h2>
                        </div>
-                    <div class="contact__form">
+                    <!-- <div class="contact__form">
                         @if(session()->has('success'))
                         <div class="alert alert-success">
                             <p>{{ session()->get('success') }}</p>
@@ -15,7 +17,7 @@
                         <div class="alert alert-danger">
                             <p>{{ session()->get('error') }}</p>
                        </div>
-                        @endif
+                        @endif -->
                          @include('components.message')  
                         <form action="{{ route('processResetPassword') }}" method="post">
                             @csrf

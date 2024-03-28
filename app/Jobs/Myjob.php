@@ -17,16 +17,17 @@ class Myjob implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $user;
+    public $password;
 
     /**
      * Create a new job instance.
      *
      * @return void
      */
-    public function __construct($user)
+    public function __construct($user,$password)
     {
         $this->user = $user;
-        //
+        $this->password = $password;
     }
 
     /**
@@ -36,7 +37,6 @@ class Myjob implements ShouldQueue
      */
     public function handle():void
     {
-        Mail::to($this->user['email'])->send(new Testing($this->user));
-        //
+        Mail::to($this->user['email'])->send(new Testing($this->user,$this->password));
     }
 }

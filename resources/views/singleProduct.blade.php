@@ -8,9 +8,9 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="product__details__breadcrumb">
-                            <a href="./index.html">Home</a>
-                            <a href="./shop.html">Shop</a>
-                            <span>Product Details</span>
+                            <!-- <a href="./index.html">Home</a>
+                            <a href="./shop.html">Shop</a> -->
+                            <h3>Product Details</h3>
                         </div>
                     </div>
                 </div>
@@ -111,7 +111,7 @@
     <!-- Shop Details Section End -->
 
     <!-- Related Section Begin -->
-    <section class="related spad">
+    <!-- <section class="related spad">
         <div class="container">
             <div class="row">
                 <div class="col-lg-12">
@@ -122,7 +122,7 @@
                 <div class="col-lg-3 col-md-6 col-sm-6 col-sm-6">
                     <div class="product__item">
                         <div class="product__item__pic set-bg" data-setbg="img/product/product-1.jpg">
-                            <span class="label">New</span>
+                            <span class="label">/span>
                             <ul class="product__hover">
                                 <li><a href="#"><img src="img/icon/heart.png" alt=""></a></li>
                                 <li><a href="#"><img src="img/icon/compare.png" alt=""> <span>Compare</span></a></li>
@@ -259,7 +259,7 @@
                 </div>
             </div>
         </div>
-    </section>
+    <!-- </section>  -->
     <!-- Related Section End -->
 
     <x-footer />
